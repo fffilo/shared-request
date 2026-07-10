@@ -7,6 +7,8 @@
 
 A tiny utility for deduplicating identical `fetch()` requests while caching the parsed response.
 
+---
+
 ## Why?
 
 Native `fetch()` does not deduplicate identical requests. If multiple components request the same resource, each caller creates a separate network request.
@@ -25,13 +27,6 @@ Caller C ─────┘
 
 Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned Promise rejects with `AbortError`.
 
-## Requirements
-
-Requires an environment with:
-- `fetch`
-- `AbortController`
-- ES modules support
-
 ## Features
 
 - 🚀 Deduplicates concurrent requests
@@ -42,6 +37,13 @@ Requires an environment with:
 - 🛑 Independent cancellation for every caller
 - 🔄 Failed requests are automatically removed from cache
 
+## Requirements
+
+Requires an environment with:
+- `fetch`
+- `AbortController`
+- ES modules support
+
 ---
 
 ## Installation
@@ -49,8 +51,6 @@ Requires an environment with:
 ```bash
 npm install shared-request
 ```
-
----
 
 ## Basic usage
 
