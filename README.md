@@ -240,6 +240,16 @@ This trade-off keeps the implementation simple while still providing the expecte
 
 ---
 
+<!--
+## Future plans
+
+- supporting cache instances (createSharedRequest()) instead of one global cache
+- update tests
+- adding GitHub Actions for tests + npm provenance publishing
+- tag v1.0.0
+- abort acts more fetch native like: executes instantly (promise race)
+-->
+
 ## Contributing
 
 Issues and pull requests are welcome.
