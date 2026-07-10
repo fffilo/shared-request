@@ -25,7 +25,7 @@ Caller B ─────┼────► shared request ───► network
 Caller C ─────┘
 ```
 
-Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned Promise rejects with `AbortError`.
+Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned `Promise` rejects with `AbortError`.
 
 ## Features
 
@@ -167,7 +167,7 @@ sharedRequest(url, {
 
 ### sharedRequest(url, options)
 
-Returns a Promise containing the parsed response.
+Returns a `Promise` containing the parsed response.
 
 ### Options
 
@@ -186,6 +186,8 @@ Returns a Promise containing the parsed response.
 ### hasCacheKey(key)
 
 ```js
+import { hasCacheKey, clearCacheKey, clearCache } from "shared-request";
+
 if (hasCacheKey("users")) {
     ...
 }
