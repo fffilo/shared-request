@@ -1,5 +1,5 @@
 import { beforeEach, afterEach } from "node:test";
-import sharedRequest from "../../index.js";
+import sharedRequest, { createSharedRequest } from "../../index.js";
 
 beforeEach(() => {
     sharedRequest.clearCache();
@@ -13,4 +13,5 @@ afterEach(() => {
 
 export {
     sharedRequest,
+    createSharedRequest,
 };
