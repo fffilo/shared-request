@@ -28,7 +28,7 @@ const clearCacheKey = (key) => {
 
     const id = entry.ttlTimeoutId;
     if (id)
-        window.clearTimeout(id);
+        clearTimeout(id);
 
     cache.delete(key);
 };
@@ -111,7 +111,7 @@ export default function sharedRequest(url, options={}) {
                 })
                 .then((content) => {
                     if (ttl)
-                        entry.ttlTimeoutId = window.setTimeout(() => clearCacheKey(cacheKey), ttl);
+                        entry.ttlTimeoutId = setTimeout(() => clearCacheKey(cacheKey), ttl);
 
                     return content;
                 })
