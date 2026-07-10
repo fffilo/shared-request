@@ -2,15 +2,38 @@
   "name": "shared-request",
   "version": "0.1.0",
   "description": "A tiny utility for deduplicating identical fetch() requests while caching the parsed response.",
+  "keywords": [
+    "fetch",
+    "cache",
+    "request",
+    "deduplication",
+    "abortcontroller",
+    "http"
+  ],
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "index.js",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "author": {
     "name": "Franjo Filo",
     "email": "fffilo666r@gmail.com",
     "url": "https://github.com/fffilo"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fffilo/shared-request.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fffilo/shared-request/issues"
+  },
+  "homepage": "https://github.com/fffilo/shared-request#readme",
   "contributors": [],
   "license": "MIT"
 }
