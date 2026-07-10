@@ -1,0 +1,16 @@
+{
+  "name": "shared-request",
+  "version": "0.1.0",
+  "description": "A tiny utility for deduplicating identical fetch() requests while caching the parsed response.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Franjo Filo",
+    "email": "fffilo666r@gmail.com",
+    "url": "https://github.com/fffilo"
+  },
+  "contributors": [],
+  "license": "MIT"
+}
