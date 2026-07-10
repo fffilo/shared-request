@@ -27,7 +27,7 @@ export interface SharedRequestOptions<T = unknown> extends RequestInit {
 }
 
 /**
- * Shared fetch with request deduplication.
+ * Shared request function with helper methods.
  *
  * Multiple callers requesting the same resource share a single network
  * request. Successful responses are cached and returned to all callers.
@@ -36,22 +36,51 @@ export interface SharedRequestOptions<T = unknown> extends RequestInit {
  * AbortError. The shared request continues so other callers can still
  * receive the response.
  */
-export default function sharedRequest<T = unknown>(
-    url: string,
-    options?: SharedRequestOptions<T>
-): Promise<T>;
+export interface SharedRequest {
+    /**
+     * Performs a shared request.
+     *
+     * @param url Resource URL.
+     * @param options Request options.
+     * @returns The parsed response.
+     */
+    <T = unknown>(
+        url: string,
+        options?: SharedRequestOptions<T>
+    ): Promise<T>;
+
+    /**
+     * Returns whether a cache entry exists.
+     *
+     * @param key Cache key.
+     */
+    hasCacheKey(key: string): boolean;
+
+    /**
+     * Removes a single cache entry.
+     *
+     * @param key Cache key.
+     */
+    clearCacheKey(key: string): void;
+
+    /**
+     * Removes all cache entries.
+     */
+    clearCache(): void;
+}
 
 /**
- * Returns whether a cache entry exists.
+ * Creates an isolated shared request instance.
+ *
+ * Each instance maintains its own request cache and helper methods.
  */
-export function hasCacheKey(key: string): boolean;
+export function createSharedRequest(): SharedRequest;
 
 /**
- * Removes a single cache entry.
+ * Default shared request instance.
+ *
+ * Uses a global cache shared by every importer of the module.
  */
-export function clearCacheKey(key: string): void;
+declare const sharedRequest: SharedRequest;
 
-/**
- * Removes all cache entries.
- */
-export function clearCache(): void;
+export default sharedRequest;

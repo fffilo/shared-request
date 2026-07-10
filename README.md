@@ -28,6 +28,8 @@ Caller C ─────┘
 
 Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned `Promise` rejects with `AbortError`.
 
+---
+
 ## Features
 
 - 🚀 Deduplicates concurrent requests
@@ -37,6 +39,8 @@ Unlike native `fetch()`, aborting one caller does **not** abort the shared reque
 - 📦 Automatic response parsing
 - 🛑 Independent cancellation for every caller
 - 🔄 Failed requests are automatically removed from cache
+
+---
 
 ## Requirements
 
@@ -53,6 +57,8 @@ Requires an environment with:
 npm install shared-request
 ```
 
+---
+
 ## Basic usage
 
 ```js
@@ -64,6 +70,27 @@ const data = await sharedRequest("/api/users");
 The first request performs the network call.
 
 Subsequent requests for the same URL return the cached result.
+
+---
+
+## Advanced usage
+
+The default export uses a global cache shared by every importer of the module.
+
+If you need an isolated cache — for example in server-side rendering (SSR), tests, or when working with multiple independent APIs — you can create your own shared request instance:
+
+```js
+import { createSharedRequest } from "shared-request";
+
+const api = createSharedRequest();
+const users = await api("/api/users");
+
+api.hasCacheKey("GET /api/users");
+api.clearCacheKey("GET /api/users");
+api.clearCache();
+```
+
+Each instance maintains its own cache and helper methods. Requests are deduplicated only within the same instance.
 
 ---
 
@@ -118,7 +145,7 @@ The TTL starts after the response has been successfully fetched and parsed.
 
 ## Custom cache key
 
-By default, the cache key is:
+`sharedRequest` uses `Map` object for caching parsed responses. By default the cache key is:
 
 ```
 <METHOD> <URL>
@@ -187,9 +214,7 @@ Returns a `Promise` containing the parsed response.
 ### hasCacheKey(key)
 
 ```js
-import { hasCacheKey, clearCacheKey, clearCache } from "shared-request";
-
-if (hasCacheKey("users")) {
+if (sharedRequest.hasCacheKey("users")) {
     ...
 }
 ```
@@ -201,7 +226,7 @@ Returns whether the cache contains the specified key.
 ### clearCacheKey(key)
 
 ```js
-clearCacheKey("users");
+sharedRequest.clearCacheKey("users");
 ```
 
 Removes a single cache entry.
@@ -211,7 +236,7 @@ Removes a single cache entry.
 ### clearCache()
 
 ```js
-clearCache();
+sharedRequest.clearCache();
 ```
 
 Removes all cached entries.
@@ -253,6 +278,8 @@ This trade-off keeps the implementation simple while still providing the expecte
 ## Contributing
 
 Issues and pull requests are welcome.
+
+---
 
 ## License
 

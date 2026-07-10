@@ -1,19 +1,16 @@
 import { beforeEach, afterEach } from "node:test";
-import sharedRequest, { hasCacheKey, clearCacheKey, clearCache } from "../../index.js";
+import sharedRequest from "../../index.js";
 
 beforeEach(() => {
-    clearCache();
+    sharedRequest.clearCache();
 });
 
 afterEach(() => {
-    clearCache();
+    sharedRequest.clearCache();
 
     delete global.fetch;
 });
 
 export {
     sharedRequest,
-    hasCacheKey,
-    clearCacheKey,
-    clearCache,
 };
