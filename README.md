@@ -3,8 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/shared-request.svg)](https://www.npmjs.com/package/shared-request)
 [![npm downloads](https://img.shields.io/npm/dm/shared-request.svg)](https://www.npmjs.com/package/shared-request)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/shared-request.svg)](https://bundlephobia.com/package/shared-request)
-[![License](https://img.shields.io/github/license/fffilo/shared-request.svg)](https://github.com/fffilo/shared-request/blob/master/LICENSE)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-yellow?logo=buy-me-a-coffee)](https://buymeacoffee.com/fffilo)
+[![license](https://img.shields.io/github/license/fffilo/shared-request.svg)](https://github.com/fffilo/shared-request/blob/master/LICENSE)
+[![support](https://img.shields.io/badge/support-buy%20me%20a%20beer-yellow)](https://buymeacoffee.com/fffilo)
 
 A tiny utility for deduplicating identical `fetch()` requests while caching the parsed response.
 
