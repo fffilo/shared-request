@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/shared-request.svg)](https://www.npmjs.com/package/shared-request)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/shared-request.svg)](https://bundlephobia.com/package/shared-request)
 [![License](https://img.shields.io/github/license/fffilo/shared-request.svg)](https://github.com/fffilo/shared-request/blob/master/LICENSE)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-orange?logo=buy-me-a-coffee)](https://buymeacoffee.com/fffilo)
+[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-yellow?logo=buy-me-a-coffee)](https://buymeacoffee.com/fffilo)
 
 A tiny utility for deduplicating identical `fetch()` requests while caching the parsed response.
 
@@ -239,6 +239,10 @@ Native `fetch()` rejects immediately when aborted.
 This trade-off keeps the implementation simple while still providing the expected behavior for components: an aborted caller never receives the response.
 
 ---
+
+## Contributing
+
+Issues and pull requests are welcome.
 
 ## License
 
