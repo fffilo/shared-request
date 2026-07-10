@@ -12,8 +12,12 @@
   ],
   "main": "index.js",
   "type": "module",
+  "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    }
   },
   "engines": {
     "node": ">=18"
@@ -23,6 +27,7 @@
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
