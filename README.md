@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/shared-request.svg)](https://www.npmjs.com/package/shared-request)
 [![npm downloads](https://img.shields.io/npm/dm/shared-request.svg)](https://www.npmjs.com/package/shared-request)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/shared-request.svg)](https://bundlephobia.com/package/shared-request)
 [![License](https://img.shields.io/npm/l/shared-request.svg)](LICENSE)
 
 A tiny utility for deduplicating identical `fetch()` requests while caching the parsed response.
@@ -14,13 +15,22 @@ Native `fetch()` does not deduplicate identical requests. If multiple components
 
 If multiple callers request the same resource at the same time, only one network request is made. Every caller receives the same result.
 
-    Caller A ─────┐
-                  │
-    Caller B ─────┼────► shared request ───► network
-                  │
-    Caller C ─────┘
+```text
+Caller A ─────┐
+              │
+Caller B ─────┼────► shared request ───► network
+              │
+Caller C ─────┘
+```
 
 Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned Promise rejects with `AbortError`.
+
+## Requirements
+
+Requires an environment with:
+- `fetch`
+- `AbortController`
+- ES modules support
 
 ## Features
 

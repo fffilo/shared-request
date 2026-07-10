@@ -67,7 +67,7 @@ const defaultParser = (response) => {
 };
 
 /**
- * Shared request without request duplication.
+ * Shared request with request deduplication.
  *
  * Multiple callers requesting the same resource share a single network
  * request. Aborting one caller does not abort the shared request; it only
@@ -77,7 +77,7 @@ const defaultParser = (response) => {
  * request is aborted, the abort exception doesn't occur immediately like it
  * does with fetch. It waits for the request to finish so parsed response
  * can be cached. I might solve this in the future, but for now this is
- * exceptable "flaw"...
+ * acceptable "flaw"...
  *
  * @param  {String}  url
  * @param  {Object}  options
