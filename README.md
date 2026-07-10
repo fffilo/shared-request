@@ -6,6 +6,12 @@
 
 A tiny utility for deduplicating identical `fetch()` requests while caching the parsed response.
 
+## Why?
+
+Native `fetch()` does not deduplicate identical requests. If multiple components request the same resource, each caller creates a separate network request.
+
+`shared-request` keeps one shared request and lets every caller consume the same parsed result.
+
 If multiple callers request the same resource at the same time, only one network request is made. Every caller receives the same result.
 
     Caller A ─────┐
