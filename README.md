@@ -26,7 +26,7 @@ Caller B ─────┼────► shared request ───► network
 Caller C ─────┘
 ```
 
-Unlike native `fetch()`, aborting one caller does **not** abort the shared request. Instead, only that caller's returned `Promise` rejects with `AbortError`.
+Aborting one caller does **not** abort the shared request; it only causes that caller's returned `Promise` to reject with `AbortError`.
 
 ---
 
@@ -245,7 +245,7 @@ Removes all cached entries.
 
 ## Notes
 
-### Why cache the parsed response?
+### Why cache parsed response?
 
 `Response` bodies are streams and can only be consumed once.
 
@@ -255,25 +255,13 @@ Instead of caching the `Response`, this library caches the parsed result (`text`
 
 ### Abort behavior
 
-The abort behavior intentionally differs slightly from native `fetch()`.
+The `signal` passed in `options` is **not** forwarded to `fetch()`.
 
-Native `fetch()` rejects immediately when aborted.
+Instead, `shared-request` listens for its `abort` event and rejects **only the caller's** `Promise` with an `AbortError`, while allowing the shared network request to continue.
 
-`shared-request` keeps the shared request alive so the response can still be cached for other callers. The caller that aborted will receive an `AbortError` after the shared request completes.
-
-This trade-off keeps the implementation simple while still providing the expected behavior for components: an aborted caller never receives the response.
+This ensures that an aborted caller never receives the response, while the completed request can still be cached and reused by other callers.
 
 ---
-
-<!--
-## Future plans
-
-- supporting cache instances (createSharedRequest()) instead of one global cache
-- update tests
-- adding GitHub Actions for tests + npm provenance publishing
-- tag v1.0.0
-- abort acts more fetch native like: executes instantly (promise race)
--->
 
 ## Contributing
 

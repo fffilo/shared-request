@@ -80,12 +80,6 @@ const createSharedRequest = () => {
      * request. Aborting one caller does not abort the shared request; it only
      * causes that caller's returned Promise to reject with AbortError.
      *
-     * Aborting the call behaves a bit differently than with native fetch.
-     * When request is aborted, the abort exception doesn't occur immediately
-     * like it does with fetch. It waits for the request to finish so parsed
-     * response can be cached. I might solve this in the future, but for now
-     * this is acceptable "flaw"...
-     *
      * @param  {String}  url
      * @param  {Object}  options
      * @return {Promise}
@@ -99,8 +93,12 @@ const createSharedRequest = () => {
             ...fetchOptions
         } = options;
 
-        let aborted = false;
-        const handleAbort = () => aborted = true;
+        const abortError = new DOMException("Aborted", "AbortError");
+        if (signal?.aborted)
+            return Promise.reject(abortError);
+
+        let rejector = null;
+        const handleAbort = () => rejector?.(abortError);
         signal?.addEventListener("abort", handleAbort, { once: true });
 
         const method = (fetchOptions.method || "GET").toUpperCase();
@@ -133,13 +131,13 @@ const createSharedRequest = () => {
             cache.set(cacheKey, entry);
         }
 
-        return entry.promise.then((content) => {
-            signal?.removeEventListener("abort", handleAbort);
-            if (aborted)
-                throw new DOMException("Aborted", "AbortError");
+        return new Promise(
+            (resolve, reject) => {
+                rejector = reject;
 
-            return content;
-        });
+                entry.promise.then(resolve, reject);
+            })
+            .finally(() => signal?.removeEventListener("abort", handleAbort));
     };
 
     sharedRequest.hasCacheKey = hasCacheKey;
