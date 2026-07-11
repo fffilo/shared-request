@@ -145,7 +145,7 @@ The TTL starts after the response has been successfully fetched and parsed.
 
 ## Custom cache key
 
-`sharedRequest` uses `Map` object for caching parsed responses. By default the cache key is:
+`shared-request` uses `Map` object for caching parsed responses. By default the cache key is:
 
 ```
 <METHOD> <URL>
