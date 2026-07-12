@@ -45,8 +45,8 @@ Aborting one caller does **not** abort the shared request; it only causes that c
 ## Requirements
 
 Requires an environment with:
-- `fetch`
-- `AbortController`
+- native `fetch`
+- native `AbortController`
 - ES modules support
 
 ---
@@ -75,7 +75,7 @@ Subsequent requests for the same URL return the cached result.
 
 ## Advanced usage
 
-The default export uses a global cache shared by every importer of the module.
+The default export uses a module-level cache shared by every importer.
 
 If you need an isolated cache — for example in server-side rendering (SSR), tests, or when working with multiple independent APIs — you can create your own shared request instance:
 
@@ -105,7 +105,7 @@ console.log(a === b); // false
 const [users1, users2] = await Promise.all([a, b]);
 ```
 
-Only **one** HTTP request is sent.
+Only **one** HTTP request is sent. Note that `a` and `b` are different Promises. The deduplication happens internally at the network request level.
 
 ---
 
