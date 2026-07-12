@@ -24,6 +24,14 @@ export interface SharedRequestOptions<T = unknown> extends RequestInit {
      * Content-Type header.
      */
     parser?: (response: Response) => T | Promise<T>;
+
+    /**
+     * Abort signal for this caller.
+     *
+     * Aborting does not cancel the shared network request.
+     * Only this caller's Promise is rejected with AbortError.
+     */
+    signal?: AbortSignal | null;
 }
 
 /**
@@ -53,6 +61,7 @@ export interface SharedRequest {
      * Returns whether a cache entry exists.
      *
      * @param key Cache key.
+     * @returns True when the cache contains the key.
      */
     hasCacheKey(key: string): boolean;
 
@@ -79,7 +88,7 @@ export function createSharedRequest(): SharedRequest;
 /**
  * Default shared request instance.
  *
- * Uses a global cache shared by every importer of the module.
+ * Uses a module-level cache shared by every importer of the module.
  */
 declare const sharedRequest: SharedRequest;
 
