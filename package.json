@@ -1,6 +1,6 @@
 {
   "name": "shared-request",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A tiny utility for deduplicating identical fetch() requests while caching the parsed response.",
   "keywords": [
     "fetch",
