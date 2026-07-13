@@ -243,6 +243,12 @@ Removes all cached entries.
 
 ---
 
+## Security
+
+This package does not perform any network requests on its own. It only wraps the `fetch()` function provided by the runtime and executes requests explicitly initiated by the caller.
+
+---
+
 ## Notes
 
 ### Why cache parsed response?
