@@ -201,7 +201,6 @@ Returns a `Promise` containing the parsed response.
 
 | Option | Description |
 |---------|-------------|
-| `signal` | Abort signal for the current caller. |
 | `ttl` | Cache lifetime in milliseconds. |
 | `key` | Custom cache key. |
 | `parser` | Custom response parser. |
@@ -243,12 +242,6 @@ Removes all cached entries.
 
 ---
 
-## Security
-
-This package does not perform any network requests on its own. It only wraps the `fetch()` function provided by the runtime and executes requests explicitly initiated by the caller.
-
----
-
 ## Notes
 
 ### Why cache parsed response?
@@ -266,6 +259,12 @@ The `signal` passed in `options` is **not** forwarded to `fetch()`.
 Instead, `shared-request` listens for its `abort` event and rejects **only the caller's** `Promise` with an `AbortError`, while allowing the shared network request to continue.
 
 This ensures that an aborted caller never receives the response, while the completed request can still be cached and reused by other callers.
+
+---
+
+### Security
+
+This package does not perform any network requests on its own. It only wraps the `fetch()` function provided by the runtime and executes requests explicitly initiated by the caller.
 
 ---
 
